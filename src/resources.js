@@ -2,7 +2,7 @@ import { ref } from "vue";
 import { numberArrayHashcode, stringHashcode } from "./utils";
 
 const caughtError = ref(null);
-const apiUrl = 'https://api.worldsbeyond.crossager.net:1100/'
+const apiUrl = 'https://worldsbeyondapi.crossager.net/'
 
 async function fetchResource(endpoint) {
   var fullUrl = apiUrl + "resources/" + endpoint;
