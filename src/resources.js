@@ -2,8 +2,10 @@ import { ref } from "vue";
 import { numberArrayHashcode, stringHashcode } from "./utils";
 
 const caughtError = ref(null);
+const apiUrl = 'https://api.worldsbeyond.crossager.net:1100/'
+
 async function fetchResource(endpoint) {
-  var fullUrl = "http://139.162.186.76:1100/resources/" + endpoint;
+  var fullUrl = apiUrl + "resources/" + endpoint;
 
   var options = {
     method: 'GET',
@@ -226,6 +228,7 @@ try {
 
 export {
     isLoaded,
+    apiUrl,
     caughtError,
     hello,
     attributes,

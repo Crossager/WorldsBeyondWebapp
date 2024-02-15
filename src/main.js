@@ -1,6 +1,6 @@
 import { createApp, ref } from 'vue'
 import App from './App.vue'
-import { parseItem, getSkillById, parseTotalExp, parseAttributes, items, getWorldyId } from './resources';
+import { parseItem, getSkillById, parseTotalExp, parseAttributes, items, getWorldyId, apiUrl } from './resources';
 
 const app = createApp(App)
 
@@ -13,7 +13,7 @@ var isRequesting = false;
 
 function callEndpoint(endpoint, method, payload) {
   // Concatenate the url and the endpoint
-  var fullUrl = "http://139.162.186.76:1100/" + endpoint;
+  var fullUrl = apiUrl + endpoint;
 
   // Create headers object
   var headers = {
