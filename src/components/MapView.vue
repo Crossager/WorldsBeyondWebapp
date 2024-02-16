@@ -11,7 +11,7 @@
           <h3>{{ world.name }}</h3>
           <button v-if="isUnlocked(world.id)" @click="travel(world.id)" :disabled="localUserRef.world === world.id || isLoading" class="simple-button">Travel Here</button>
           <div v-else v-if="world.id !== 'unknown'" class="world-cost">
-            <button class="simple-button" :disabled="!canUnlock[index]">Unlock World</button>
+            <button class="simple-button" :disabled="!canUnlock[index]" @click="unlock(world.id)">Unlock World</button>
             <div class="item-grid">
               <div
                 v-for="(cost, index) in world._parsed.unlockCost"
@@ -96,6 +96,20 @@ import ItemDisplay from './ItemDisplay.vue';
             })
                 .catch((error) => {
                 console.warn("Error while traveling " + error);
+                this.isLoading = false;
+            });
+        },
+        unlock(worldId) {
+            if (this.isLoading)
+                return;
+            this.isLoading = true;
+            callEndpoint('unlock-world', 'POST', worldId)
+                .then((user) => {
+                setUser(user);
+                this.isLoading = false;
+            })
+                .catch((error) => {
+                console.warn("Error while unlocking " + error);
                 this.isLoading = false;
             });
         },
