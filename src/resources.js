@@ -24,7 +24,7 @@ const templateItem = {
     category: ""
   },
   enchantmentSet: [],
-  itemType: "",
+  itemType: "blank",
   _parsed: {
     itemType: {
       id: "",
