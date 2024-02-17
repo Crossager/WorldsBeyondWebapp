@@ -1,29 +1,17 @@
-# vue-project
+# WorldsBeyond
 
-This template should help get you started developing with Vue 3 in Vite.
+Welcome to WorldsBeyond, a REST based game with the ability to play from any device. 
+This is the official web ui version.
+Learn more: https://discord.gg/qtDNghFncJ
+Play the game: https://worldsbeyond.crossager.net/
 
-## Recommended IDE Setup
+## Technologies Used
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+- Vue.js: Frontend framework for building interactive user interfaces.
+- JavaScript: Programming language used for game logic and functionality.
+- HTML/CSS: Markup and styling languages for designing the game interface.
+- Node.js: Backend environment for running the game server and managing user data.
 
-## Customize configuration
+## License
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+This project is licensed under the MIT License.
