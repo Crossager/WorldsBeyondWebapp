@@ -95,7 +95,7 @@ import ItemDisplay from './ItemDisplay.vue';
                 this.isLoading = false;
             })
                 .catch((error) => {
-                console.warn("Error while traveling " + error);
+                console.warn("Error while traveling " + error.response.data);
                 this.isLoading = false;
             });
         },
@@ -109,7 +109,7 @@ import ItemDisplay from './ItemDisplay.vue';
                 this.isLoading = false;
             })
                 .catch((error) => {
-                console.warn("Error while unlocking " + error);
+                console.warn("Error while unlocking " + error.response.data);
                 this.isLoading = false;
             });
         },

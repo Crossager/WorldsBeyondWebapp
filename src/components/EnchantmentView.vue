@@ -309,7 +309,7 @@ export default {
           this.isEnchanting = false;
         })
         .catch((error) => {
-          console.warn("Error when enchanting: " + error);
+          console.warn("Error when enchanting: " + error.response.data);
           this.isEnchanting = false;
         });
     },
