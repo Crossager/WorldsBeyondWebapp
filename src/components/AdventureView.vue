@@ -137,7 +137,7 @@ import HuntingView from './adventure/HuntingView.vue'
                 this.adventure = adventure.title;
             })
             .catch((error) => {
-                console.warn("Error while doing adventure " + adventure + "  " + error);
+                console.warn("Error while doing adventure " + adventure + "  " + error.response.data);
                 this.isLoading = false;
             });
       },

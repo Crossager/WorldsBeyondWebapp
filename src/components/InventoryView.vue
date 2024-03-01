@@ -260,7 +260,7 @@ export default {
           this.$emit("update");
         })
         .catch((error) => {
-          console.warn("Error when equipping item:", error);
+          console.warn("Error when unequipping item: " + error.response.data);
           this.isLoading = false;
         });
     },
@@ -275,7 +275,7 @@ export default {
           this.isLoading = false;
         })
         .catch((error) => {
-          console.warn("Error when salvaging: " + error);
+          console.warn("Error when salvaging: " + error.response.data);
           this.isLoading = false;
         });
     },
@@ -293,7 +293,7 @@ export default {
             this.isLoading = false;
           })
           .catch((error) => {
-            console.warn("Error when equipping item:", error);
+            console.warn("Error when equipping item: " + error.response.data);
             this.isLoading = false;
           });
       }

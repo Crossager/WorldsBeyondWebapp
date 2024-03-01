@@ -152,7 +152,7 @@ export default {
           this.isLoading = false;
         })
         .catch((error) => {
-          console.warn("Error when crafting: " + error);
+          console.warn("Error when crafting: " + error.response.data);
           this.isLoading = false;
         });
     },
