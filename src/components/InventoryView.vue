@@ -7,7 +7,7 @@
       </template>
       <div>
         <h4>Full Set Bonus:</h4>
-        <h3 v-if="activeFullSetBonus">
+        <h3 v-if="activeFullSetBonus" style="position: absolute; margin-top:-15px;">
           {{ activeFullSetBonus.name }}:
           {{ activeFullSetBonus._parsed.wearingCount(equipment) }} /
           {{ activeFullSetBonus._parsed.pieceCount }}
@@ -253,9 +253,10 @@ export default {
       return chunkedArray;
     },
     unequipItem(index) {
-      this.isLoading = true;
       const newEquipment = [...this.localUserRef.wardrobe[this.localUserRef.selectedEquipment]];
       newEquipment[index] = null;
+      if (!newEquipment[index]) return;
+      this.isLoading = true;
       callEndpoint("equipment", "POST", newEquipment)
         .then((user) => {
           setUser(user);
@@ -342,7 +343,13 @@ h3 {
 .equipment-info {
   display: flex;
   justify-content: space-around;
+  margin-bottom: 20px;
 }
+
+.equipment-info button {
+  width: 10%;
+}
+
 .salvage-button-max {
   padding: 10px;
   margin-left: 10px;
