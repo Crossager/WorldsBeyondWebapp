@@ -1,10 +1,13 @@
 <template>
   <div>
-    <div>
-      <h3>Equipment</h3>
-      <div v-if="activeFullSetBonus">
+    <div class="equipment-info">
+      <h2>Equipment</h2>
+      <template v-for="i in 3" :key="i">
+        <button class="simple-button" :disabled="localUserRef.selectedEquipment === i - 1" @click="selectEquipment(i - 1)">Loadout {{ i }}</button>
+      </template>
+      <div>
         <h4>Full Set Bonus:</h4>
-        <h3>
+        <h3 v-if="activeFullSetBonus" style="position: absolute; margin-top:-15px;">
           {{ activeFullSetBonus.name }}:
           {{ activeFullSetBonus._parsed.wearingCount(equipment) }} /
           {{ activeFullSetBonus._parsed.pieceCount }}
@@ -250,9 +253,10 @@ export default {
       return chunkedArray;
     },
     unequipItem(index) {
-      this.isLoading = true;
-      const newEquipment = [...this.localUserRef.equipment];
+      const newEquipment = [...this.localUserRef.wardrobe[this.localUserRef.selectedEquipment]];
       newEquipment[index] = null;
+      if (!newEquipment[index]) return;
+      this.isLoading = true;
       callEndpoint("equipment", "POST", newEquipment)
         .then((user) => {
           setUser(user);
@@ -260,7 +264,7 @@ export default {
           this.$emit("update");
         })
         .catch((error) => {
-          console.warn("Error when unequipping item: " + error.response.data);
+          console.warn("Error when unequipping item: " + error);
           this.isLoading = false;
         });
     },
@@ -275,14 +279,14 @@ export default {
           this.isLoading = false;
         })
         .catch((error) => {
-          console.warn("Error when salvaging: " + error.response.data);
+          console.warn("Error when salvaging: " + error);
           this.isLoading = false;
         });
     },
     equipItem() {
       if (this.isEquippable) {
         this.isLoading = true;
-        const newEquipment = [...this.localUserRef.equipment];
+        const newEquipment = [...this.localUserRef.wardrobe[this.localUserRef.selectedEquipment]];
         const transferableItem = { ...this.selectedItem[0] };
         transferableItem._parsed = undefined;
         newEquipment[this.selectedItem[0]._parsed.equipmentMeta.equipmentSlot] =
@@ -293,10 +297,24 @@ export default {
             this.isLoading = false;
           })
           .catch((error) => {
-            console.warn("Error when equipping item: " + error.response.data);
+            console.warn("Error when equipping item: " + error);
             this.isLoading = false;
           });
       }
+    },
+    selectEquipment(index) {
+      if (this.localUserRef.selectEquipment === index) return;
+
+      this.isLoading = true;
+      callEndpoint("select-equipment", "POST", {index})
+        .then((user) => {
+          setUser(user);
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          console.warn("Error when selecting equipment: " + error);
+          this.isLoading = false;
+        });
     },
   },
 };
@@ -321,6 +339,17 @@ h3 {
 .equipment-slot-name {
   font-weight: bold;
 }
+
+.equipment-info {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.equipment-info button {
+  width: 10%;
+}
+
 .salvage-button-max {
   padding: 10px;
   margin-left: 10px;
