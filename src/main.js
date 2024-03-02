@@ -80,7 +80,7 @@ function getParsedUserData(user) {
   parsedData.money = getEntity(user, 1);
   parsedData.joinDate = new Date(getEntity(user, 2));
   parsedData.inventory = user.inventory.map((pair) => [parseItem(pair[0]), pair[1]]);
-  parsedData.equipment = user.equipment.map((item) => item ? parseItem(item) : null);
+  parsedData.equipment = user.wardrobe[user.selectedEquipment].map((item) => item ? parseItem(item) : null);
   parsedData.skills = user.entityMap.map((entity) => {return { ...parseTotalExp(entity[1]), skill: getSkillById(entity[0]) }}).filter((x) => x.skill);
   parsedData.attributes = parseAttributes(user.attributes);
   parsedData.world = getWorldyId(user.world);

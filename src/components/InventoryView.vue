@@ -1,10 +1,13 @@
 <template>
   <div>
-    <div>
-      <h3>Equipment</h3>
-      <div v-if="activeFullSetBonus">
+    <div class="equipment-info">
+      <h2>Equipment</h2>
+      <template v-for="i in 3" :key="i">
+        <button class="simple-button" :disabled="localUserRef.selectedEquipment === i - 1" @click="selectEquipment(i - 1)">Loadout {{ i }}</button>
+      </template>
+      <div>
         <h4>Full Set Bonus:</h4>
-        <h3>
+        <h3 v-if="activeFullSetBonus">
           {{ activeFullSetBonus.name }}:
           {{ activeFullSetBonus._parsed.wearingCount(equipment) }} /
           {{ activeFullSetBonus._parsed.pieceCount }}
@@ -251,7 +254,7 @@ export default {
     },
     unequipItem(index) {
       this.isLoading = true;
-      const newEquipment = [...this.localUserRef.equipment];
+      const newEquipment = [...this.localUserRef.wardrobe[this.localUserRef.selectedEquipment]];
       newEquipment[index] = null;
       callEndpoint("equipment", "POST", newEquipment)
         .then((user) => {
@@ -282,7 +285,7 @@ export default {
     equipItem() {
       if (this.isEquippable) {
         this.isLoading = true;
-        const newEquipment = [...this.localUserRef.equipment];
+        const newEquipment = [...this.localUserRef.wardrobe[this.localUserRef.selectedEquipment]];
         const transferableItem = { ...this.selectedItem[0] };
         transferableItem._parsed = undefined;
         newEquipment[this.selectedItem[0]._parsed.equipmentMeta.equipmentSlot] =
@@ -297,6 +300,20 @@ export default {
             this.isLoading = false;
           });
       }
+    },
+    selectEquipment(index) {
+      if (this.localUserRef.selectEquipment === index) return;
+
+      this.isLoading = true;
+      callEndpoint("select-equipment", "POST", {index})
+        .then((user) => {
+          setUser(user);
+          this.isLoading = false;
+        })
+        .catch((error) => {
+          console.warn("Error when selecting equipment: " + error.response.data);
+          this.isLoading = false;
+        });
     },
   },
 };
@@ -320,6 +337,11 @@ h3 {
 
 .equipment-slot-name {
   font-weight: bold;
+}
+
+.equipment-info {
+  display: flex;
+  justify-content: space-around;
 }
 .salvage-button-max {
   padding: 10px;
