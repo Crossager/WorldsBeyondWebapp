@@ -1,7 +1,7 @@
 <template>
   <div class="top">
     <div @click="handleItemClick"
-       :class="disabled ? 'item-disabled' : 'item-box'"
+       :class="disabled ? 'item-box item-disabled' : 'item-box'"
        :style="itemClick ? 'cursor:pointer' : ''"
        >
        
@@ -192,8 +192,7 @@ export default {
   margin-top: 10px; /* Adjust text color as needed */
 }
 .item-disabled {
-  filter: grayscale(100%); /* Turn item gray */
+  filter: grayscale(100%) brightness(0.8);
   cursor: not-allowed; /* Change cursor to not-allowed */
-  background-color: #949494;
 }
 </style>
