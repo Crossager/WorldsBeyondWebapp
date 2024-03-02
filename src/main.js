@@ -49,7 +49,7 @@ function callEndpoint(endpoint, method, payload) {
         return await callEndpoint(endpoint, method, payload);
       }
       if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        throw new Error(`${response.status} error! ${await response.text()}`);
       }
 
       // Parse the response JSON

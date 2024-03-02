@@ -50,7 +50,7 @@
           this.isLoading = false;
         })
         .catch((error) => {
-          console.warn("Error when buying from merchant: " + error.response.data);
+          console.warn("Error when buying from merchant: " + error);
           this.isLoading = false;
         });
       },

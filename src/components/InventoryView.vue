@@ -263,7 +263,7 @@ export default {
           this.$emit("update");
         })
         .catch((error) => {
-          console.warn("Error when unequipping item: " + error.response.data);
+          console.warn("Error when unequipping item: " + error);
           this.isLoading = false;
         });
     },
@@ -278,7 +278,7 @@ export default {
           this.isLoading = false;
         })
         .catch((error) => {
-          console.warn("Error when salvaging: " + error.response.data);
+          console.warn("Error when salvaging: " + error);
           this.isLoading = false;
         });
     },
@@ -296,7 +296,7 @@ export default {
             this.isLoading = false;
           })
           .catch((error) => {
-            console.warn("Error when equipping item: " + error.response.data);
+            console.warn("Error when equipping item: " + error);
             this.isLoading = false;
           });
       }
@@ -311,7 +311,7 @@ export default {
           this.isLoading = false;
         })
         .catch((error) => {
-          console.warn("Error when selecting equipment: " + error.response.data);
+          console.warn("Error when selecting equipment: " + error);
           this.isLoading = false;
         });
     },
