@@ -255,7 +255,7 @@ export default {
     unequipItem(index) {
       const newEquipment = [...this.localUserRef.wardrobe[this.localUserRef.selectedEquipment]];
       newEquipment[index] = null;
-      if (!newEquipment[index]) return;
+      if (!this.localUserRef._parsed.equipment[index]) return;
       this.isLoading = true;
       callEndpoint("equipment", "POST", newEquipment)
         .then((user) => {
