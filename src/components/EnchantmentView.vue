@@ -75,6 +75,10 @@
           enchantment.name
         }}</label>
       </div>
+      <button 
+        class="simple-button disenchant-button" 
+        @click="disenchantItem()" 
+        :disabled="selectedItem.enchantmentSet.length === 0">Disenchant Item</button>
     </div>
 
     <!-- Display selected enchantment description and cost -->
@@ -247,6 +251,19 @@ export default {
     },
   },
   methods: {
+    disenchantItem() {
+      const data = {
+        equipmentSlot: internalEquipmentSlots[this.selectedEquipmentIndex],
+      };
+      callEndpoint("disenchant", "POST", data)
+        .then((user) => {
+          setUser(user);
+        })
+        .catch((error) => {
+          console.warn("Error when disenchanting: " + error);
+          this.isEnchanting = false;
+        });
+    },
     selectEquipment(index) {
       if (!this.equipment[index].equipment) return;
       if (this.selectedEquipmentIndex === index) {
@@ -360,6 +377,17 @@ export default {
 .enchantment-level-slider {
   width: 100%;
 }
+
+.disenchant-button {
+  width: 50%;
+  margin-top: 100px;
+  background-color: rgb(255, 115, 0);
+}
+
+.disenchant-button:hover {
+  background-color: rgb(155, 70, 0);
+}
+
 .enchantment-type {
   display: flex;
   justify-content: space-around;
